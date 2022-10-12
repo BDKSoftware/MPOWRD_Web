@@ -1,17 +1,29 @@
+// Imports
 import React from "react";
 import styles from "../styles/Home.module.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useRouter } from "next/router";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
+  // State definitions
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
+  // Next Router Definition
   const router = useRouter();
+
+  // Auth Context Definitions from useAuth
   const { login, isLoggedIn } = useAuth();
 
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      router.replace("/dashboard");
+    }
+  }, []);
+
+  // Function Definition for Login
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -28,15 +40,18 @@ export default function Home() {
     })
       .then((response) => response.json())
       .then((json) => {
-        login(json.IdToken, json.AccessToken);
-        setLoading(false);
-        router.replace("/dashboard");
+        if (json.AccessToken && json.IdToken) {
+          login(json.IdToken, json.AccessToken);
+          setLoading(false);
+          router.replace("/dashboard");
+        }
       })
       .catch((error) => {
         console.log("Error: " + error);
       });
   };
 
+  // Render
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>

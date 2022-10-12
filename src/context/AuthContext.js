@@ -12,10 +12,12 @@ const AuthProvider = ({ children }) => {
 
   const readData = async () => {
     try {
-      const value = localStorage.getItem("@user_token");
+      const value = window.localStorage.getItem("user_token");
+      const value2 = window.localStorage.getItem("access_token");
 
-      if (value) {
+      if (value && value2) {
         setUserToken(value);
+        setAccessToken(value2);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -31,16 +33,16 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (userToken, accessToken) => {
-    localStorage.setItem("user_token", userToken);
-    localStorage.setItem("access_token", accessToken);
+    window.localStorage.setItem("user_token", userToken);
+    window.localStorage.setItem("access_token", accessToken);
     setUserToken(userToken);
     setAccessToken(accessToken);
     setIsLoggedIn(true);
   };
 
   const logout = async () => {
-    localStorage.removeItem("user_token");
-    localStorage.removeItem("access_token");
+    window.localStorage.removeItem("user_token");
+    window.localStorage.removeItem("access_token");
     setUserToken(null);
     setAccessToken(null);
     setIsLoggedIn(false);
@@ -54,6 +56,7 @@ const AuthProvider = ({ children }) => {
   const authContextValue = {
     userToken,
     isLoggedIn,
+    setIsLoggedIn,
     login,
     logout,
     register,
