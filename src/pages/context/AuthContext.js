@@ -7,6 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   // State Declaration
   const [userToken, setUserToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const readData = async () => {
@@ -29,15 +30,19 @@ const AuthProvider = ({ children }) => {
     readData();
   }, []);
 
-  const login = async (token) => {
-    localStorage.setItem("@user_Token", token);
-    setUserToken(token);
+  const login = async (userToken, accessToken) => {
+    localStorage.setItem("user_token", userToken);
+    localStorage.setItem("access_token", accessToken);
+    setUserToken(userToken);
+    setAccessToken(accessToken);
     setIsLoggedIn(true);
   };
 
   const logout = async () => {
-    localStorage.removeItem("@user_token");
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("access_token");
     setUserToken(null);
+    setAccessToken(null);
     setIsLoggedIn(false);
   };
 

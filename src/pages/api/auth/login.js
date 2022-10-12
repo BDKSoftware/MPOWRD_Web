@@ -9,7 +9,7 @@ dotenv.config();
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send();
 
-  const { username, password } = JSON.parse(req.body);
+  const { username, password } = req.body;
   const params = {
     AuthFlow: "ADMIN_USER_PASSWORD_AUTH",
     AuthParameters: {
