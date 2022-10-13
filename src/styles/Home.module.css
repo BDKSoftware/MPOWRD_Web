@@ -74,3 +74,10 @@
   font-family: "PrimaNova";
   cursor: pointer;
 }
+
+.error {
+  color: red;
+  font-size: small;
+  font-weight: 500;
+  font-family: "PrimaNova";
+}

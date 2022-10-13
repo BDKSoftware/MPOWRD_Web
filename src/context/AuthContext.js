@@ -33,8 +33,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (userToken, accessToken) => {
-    window.localStorage.setItem("user_token", userToken);
-    window.localStorage.setItem("access_token", accessToken);
+    window.localStorage.setItem("user_token", JSON.stringify(userToken));
+    window.localStorage.setItem("access_token", JSON.stringify(accessToken));
     setUserToken(userToken);
     setAccessToken(accessToken);
     setIsLoggedIn(true);
@@ -55,8 +55,8 @@ const AuthProvider = ({ children }) => {
   // Values passed to the context
   const authContextValue = {
     userToken,
+    accessToken,
     isLoggedIn,
-    setIsLoggedIn,
     login,
     logout,
     register,

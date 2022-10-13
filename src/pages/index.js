@@ -10,6 +10,7 @@ export default function Home() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState("");
 
   // Next Router Definition
   const router = useRouter();
@@ -23,32 +24,66 @@ export default function Home() {
     }
   }, []);
 
+  const validateLogin = async () => {
+    if (email === "") {
+      setError("Please enter your email");
+      setLoading(false);
+      return false;
+    }
+
+    if (password === "") {
+      setError("Please enter your password");
+      setLoading(false);
+      return false;
+    }
+
+    if (email === "" || password === "") {
+      setError("Please fill in all fields");
+      setLoading(false);
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return false;
+    }
+
+    return true;
+  };
+
   // Function Definition for Login
   const handleSubmit = async (event) => {
+    setError("");
     event.preventDefault();
     setLoading(true);
-
-    await fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: email,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.AccessToken && json.IdToken) {
-          login(json.IdToken, json.AccessToken);
-          setLoading(false);
-          router.replace("/dashboard");
-        }
+    const validate = await validateLogin();
+    if (!validate == false) {
+      await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: email,
+          password: password,
+        }),
       })
-      .catch((error) => {
-        console.log("Error: " + error);
-      });
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.AccessToken && json.IdToken) {
+            login(json.IdToken, json.AccessToken);
+            setLoading(false);
+            router.replace("/dashboard");
+          } else {
+            setError("Invalid Credentials, please try again");
+            setLoading(false);
+          }
+        })
+        .catch((error) => {
+          console.log("Error: " + error);
+        });
+    }
   };
 
   // Render
@@ -78,6 +113,7 @@ export default function Home() {
               Log In
             </button>
           )}
+          {error ? <span className={styles.error}>{error}</span> : null}
         </form>
       </div>
     </div>
