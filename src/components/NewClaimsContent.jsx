@@ -4,6 +4,8 @@ import styles from "../styles/NewClaimsContent.module.css";
 
 import PersonIcon from "@mui/icons-material/Person";
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 function NewClaimsContent({ user }) {
   const [claims, setClaims] = React.useState([]);
 
@@ -33,18 +35,6 @@ function NewClaimsContent({ user }) {
     getClaims();
   }, []);
 
-  const claimTab = ({ name, date, status, severity, policyYear }) => {
-    return (
-      <div className={styles.claimTab}>
-        <span>{name}</span>
-        <span>{date}</span>
-        <span>{status}</span>
-        <span>{severity}</span>
-        <span>{policyYear}</span>
-      </div>
-    );
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -59,42 +49,48 @@ function NewClaimsContent({ user }) {
           />
         </div>
       </div>
-      <div className={styles.claimTable}>
-        <table className={styles.table}>
-          <tr className={styles.tableHeader}>
-            <th className={styles.tableLabel}>Name of Injured Worker</th>
-            <th className={styles.tableLabel}>Claim ID</th>
-            <th className={styles.tableLabel}>Date of Incident</th>
-            <th className={styles.tableLabel}>Status</th>
-            <th className={styles.tableLabel}>Actions</th>
-          </tr>
-          {claims.map((claim, index) => {
-            return (
-              <tr
-                className={
-                  index % 2 == 0 ? styles.tableRow : styles.tableRowOdd
-                }
-                key={index}
-              >
-                <td className={styles.tableItem}>
-                  {claim.nameOfInjuredWorker}
-                </td>
-                <td className={styles.tableItem}>{claim.id}</td>
-                <td className={styles.tableItem}>
-                  {claim.investigatorReportDate}
-                </td>
-                <td className={styles.tableItem}>{claim.status}</td>
+      {claims.length > 0 ? (
+        <div className={styles.claimTable}>
+          <table className={styles.table}>
+            <tr className={styles.tableHeader}>
+              <th className={styles.tableLabel}>Name of Injured Worker</th>
+              <th className={styles.tableLabel}>Claim ID</th>
+              <th className={styles.tableLabel}>Date of Incident</th>
+              <th className={styles.tableLabel}>Status</th>
+              <th className={styles.tableLabel}>Actions</th>
+            </tr>
+            {claims.map((claim, index) => {
+              return (
+                <tr
+                  className={
+                    index % 2 == 0 ? styles.tableRow : styles.tableRowOdd
+                  }
+                  key={index}
+                >
+                  <td className={styles.tableItem}>
+                    {claim.nameOfInjuredWorker}
+                  </td>
+                  <td className={styles.tableItem}>{claim.id}</td>
+                  <td className={styles.tableItem}>
+                    {claim.investigatorReportDate}
+                  </td>
+                  <td className={styles.tableItem}>{claim.status}</td>
 
-                <td className={styles.tableItem}>
-                  <div className={styles.button}>
-                    <span className={styles.buttonText}>View Claim</span>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </table>
-      </div>
+                  <td className={styles.tableItem}>
+                    <div className={styles.button}>
+                      <span className={styles.buttonText}>View Claim</span>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
+      ) : (
+        <div className={styles.noClaims}>
+          <ClipLoader color={"#117fff"} loading={true} size={25} />
+        </div>
+      )}
     </div>
   );
 }
