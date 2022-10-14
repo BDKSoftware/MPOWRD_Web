@@ -16,7 +16,7 @@ function DashboardContainer({ user }) {
       case "home":
         return <HomeContent user={user} />;
       case "new":
-        return <NewClaimsContent />;
+        return <NewClaimsContent user={user} />;
       // case "existing":
       //   return <ExistingClaims />;
       // case "reports":

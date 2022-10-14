@@ -3,8 +3,118 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
   width: 90%;
-  height: 90%;
-  background: #fff;
+  height: 10%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.iconContainer {
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+  background: #117fff40;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.title {
+  color: #475361;
+  font-family: "Primanova";
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.claimTable {
+  width: 90%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
   border-radius: 10px;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.tableHeader {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #e2e5ea;
+}
+
+.tableLabel {
+  color: #6f7680;
+  font-family: "Primanova";
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 20px;
+  width: 20%;
+}
+
+.tableRow {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.tableRowOdd {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #f3f6fa;
+  border-radius: 20px;
+}
+
+.tableItem {
+  color: #475361;
+  font-family: "Primanova";
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 100%;
+}
+
+.button {
+  width: 40%;
+  height: 55%;
+  border-radius: 10px;
+  background: #117fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonText {
+  color: #fff;
+  font-family: "Primanova";
+  font-size: 16px;
+  font-weight: 500;
 }
