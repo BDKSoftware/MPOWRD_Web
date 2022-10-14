@@ -2,8 +2,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 90%;
   height: 90%;
   background: #fff;
   border-radius: 10px;
+}
+
+.logo {
+  width: 20%;
+  height: 10%;
+  margin-bottom: 100px;
+}
+
+.title {
+  font-size: 20px;
+  font-family: "PrimaNova";
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #6f7680;
 }
