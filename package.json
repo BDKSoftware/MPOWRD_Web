@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.186.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.9",
     "amazon-cognito-identity-js": "^5.2.10",
     "aws-sdk": "^2.1225.0",
     "dotenv": "^16.0.2",
