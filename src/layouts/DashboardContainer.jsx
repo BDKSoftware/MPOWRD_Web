@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar";
 
 // Imports Content
 import HomeContent from "../components/HomeContent";
+import NewClaimsContent from "../components/NewClaimsContent";
 
 function DashboardContainer() {
   const [active, setActive] = React.useState("home");
@@ -14,8 +15,8 @@ function DashboardContainer() {
     switch (active) {
       case "home":
         return <HomeContent />;
-      // case "new":
-      //   return <NewClaims />;
+      case "new":
+        return <NewClaimsContent />;
       // case "existing":
       //   return <ExistingClaims />;
       // case "reports":
