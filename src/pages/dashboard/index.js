@@ -12,13 +12,12 @@ import DashboardContainer from "../../layouts/DashboardContainer";
 // Component Declaration
 export default function Dashboard() {
   // Auth Context Definitions
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, user } = useAuth();
 
   // Next Router Definition
   const router = useRouter();
 
   React.useEffect(() => {
-    console.log(isLoggedIn);
     if (!isLoggedIn) {
       logout();
       router.replace("/");
@@ -28,7 +27,7 @@ export default function Dashboard() {
   // Render
   return (
     <div className={styles.container}>
-      <DashboardContainer />
+      <DashboardContainer user={user} />
     </div>
   );
 }

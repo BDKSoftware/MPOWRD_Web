@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
   const readData = async () => {
     try {
@@ -45,6 +46,7 @@ const AuthProvider = ({ children }) => {
     window.localStorage.removeItem("access_token");
     setUserToken(null);
     setAccessToken(null);
+    setUser(null);
     setIsLoggedIn(false);
   };
 
@@ -57,6 +59,8 @@ const AuthProvider = ({ children }) => {
     userToken,
     accessToken,
     isLoggedIn,
+    user,
+    setUser,
     login,
     logout,
     register,

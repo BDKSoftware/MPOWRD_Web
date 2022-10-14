@@ -16,13 +16,32 @@ export default function Home() {
   const router = useRouter();
 
   // Auth Context Definitions from useAuth
-  const { login, isLoggedIn } = useAuth();
+  const { login, isLoggedIn, setUser } = useAuth();
 
   React.useEffect(() => {
     if (isLoggedIn) {
       router.replace("/dashboard");
     }
   }, []);
+
+  const getUser = async (accessToken) => {
+    await fetch(`http://localhost:3000/api/user/byEmail?email=${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data.Items[0]);
+        //console.log(data.Items[0]);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  };
 
   const validateLogin = async () => {
     if (email === "") {
@@ -72,6 +91,7 @@ export default function Home() {
         .then((response) => response.json())
         .then((json) => {
           if (json.AccessToken && json.IdToken) {
+            getUser(json.AccessToken);
             login(json.IdToken, json.AccessToken);
             setLoading(false);
             router.replace("/dashboard");
