@@ -27,7 +27,7 @@
 
 .tabContainer {
   width: 100%;
-  height: 5%;
+  height: 6%;
   padding-left: 5px;
   display: flex;
   flex-direction: row;
@@ -39,7 +39,7 @@
 
 .tabContainerActive {
   width: 100%;
-  height: 5%;
+  height: 6%;
   padding-left: 5px;
   display: flex;
   flex-direction: row;
