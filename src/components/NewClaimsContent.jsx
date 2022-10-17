@@ -6,11 +6,15 @@ import PersonIcon from "@mui/icons-material/Person";
 
 import ClipLoader from "react-spinners/ClipLoader";
 
+import { useRouter } from "next/router";
+
 function NewClaimsContent({ user }) {
   const [claims, setClaims] = React.useState([]);
 
+  const router = useRouter();
+
   const getClaims = async () => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = window.localStorage.getItem("accessToken");
     await fetch(
       `http://localhost:3000/api/claim/byInvestigator?claimInvestigator=${user.email}`,
       {
@@ -78,7 +82,17 @@ function NewClaimsContent({ user }) {
 
                   <td className={styles.tableItem}>
                     <div className={styles.button}>
-                      <span className={styles.buttonText}>View Claim</span>
+                      <span
+                        className={styles.buttonText}
+                        onClick={() =>
+                          router.push({
+                            pathname: `/claim/${claim.id}`,
+                            query: { claimId: JSON.stringify(claim.id) },
+                          })
+                        }
+                      >
+                        View Claim
+                      </span>
                     </div>
                   </td>
                 </tr>
