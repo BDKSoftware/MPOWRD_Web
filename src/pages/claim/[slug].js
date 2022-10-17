@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-function ClaimScreen() {
-  const router = useRouter();
-  const claimID = JSON.parse(router.query.claimId);
-
+function ClaimScreen({ claimID }) {
   const [claim, setClaim] = React.useState(null);
 
-  useEffect(() => {
+  const getClaimByID = async () => {
     const token = window.localStorage.getItem("access_token");
     console.log(claimID);
     if (claimID) {
@@ -27,6 +24,10 @@ function ClaimScreen() {
           setClaim(data.Items[0]);
         });
     }
+  };
+
+  useEffect(() => {
+    getClaimByID();
   }, []);
 
   return (
@@ -37,3 +38,32 @@ function ClaimScreen() {
 }
 
 export default ClaimScreen;
+
+export const getStaticPaths = async () => {
+  const res = await fetch("http://localhost:3000/api/claim/allClaims", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
+
+  const paths = data.Items.map((claim) => {
+    return {
+      params: { slug: claim.id },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async (context) => {
+  return {
+    props: {
+      claimID: context.params.slug,
+    },
+  };
+};

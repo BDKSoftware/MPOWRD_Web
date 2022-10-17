@@ -84,12 +84,7 @@ function NewClaimsContent({ user }) {
                     <div className={styles.button}>
                       <span
                         className={styles.buttonText}
-                        onClick={() =>
-                          router.push({
-                            pathname: `/claim/${claim.id}`,
-                            query: { claimId: JSON.stringify(claim.id) },
-                          })
-                        }
+                        onClick={() => router.push(`/claim/${claim.id}`)}
                       >
                         View Claim
                       </span>
